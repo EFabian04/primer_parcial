@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -30,7 +31,17 @@ public class ProductController {
             response.put("data", e.getMessage());
             return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
         }
+    }
 
+    @GetMapping(value = "/products")
+    public ResponseEntity<List> getAllProduct(){
+        Map response = new HashMap();
+        try{
+            return new ResponseEntity(productServiceImp.getAllProduct(), HttpStatus.OK);
+        }catch (Exception e){
+            response.put("message","no hay productos registrados");
+            return new ResponseEntity(response, HttpStatus.MULTI_STATUS);
+        }
     }
 
     @PostMapping(value = "/product")
