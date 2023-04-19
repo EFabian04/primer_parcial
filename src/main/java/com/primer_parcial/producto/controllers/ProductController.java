@@ -2,13 +2,15 @@ package com.primer_parcial.producto.controllers;
 
 import com.primer_parcial.producto.models.Product;
 import com.primer_parcial.producto.services.ProductServiceImp;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.HashMap;
 import java.util.Map;
+
+@RestController
 
 public class ProductController {
 
@@ -32,7 +34,7 @@ public class ProductController {
     }
 
     @PostMapping(value = "/product")
-    public ResponseEntity createUser(@RequestBody Product product){
+    public ResponseEntity createProduct(@RequestBody Product product){
 
         Map response = new HashMap<>();
         try{
@@ -47,16 +49,36 @@ public class ProductController {
     }
 
     @PutMapping(value = "/product/{id}")
-    public ResponseEntity updateUser(@PathVariable(name = "id") Long id, Product product){
+    public ResponseEntity updateProduct(@PathVariable Long id, @RequestBody Product product){
 
         Map response = new HashMap<>();
         try{
+            System.out.println(product);
+
             response.put("message","Se actualizó el producto");
             response.put("data",productServiceImp.updateProduct(id,product));
             return new ResponseEntity(response, HttpStatus.OK);
         }catch(Exception e) {
             response.put("message", "No se actualizó el producto");
             response.put("data", e.getMessage());
+            return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping(value = "product/{id}")
+    public ResponseEntity deleteProduct(@PathVariable Long id, Product product){
+        Map response = new HashMap();
+        Boolean productDB = productServiceImp.deleteProduct(id, product);
+        try{
+            if (productDB == null){
+                response.put("massage", "No se encontró el producto");
+                return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
+            }else {
+                response.put("massage", "Se eliminó el producto");
+                return new ResponseEntity(response, HttpStatus.ACCEPTED);
+            }
+        } catch (Exception e) {
+            response.put("massage", "Error al eliminar");
             return new ResponseEntity(response, HttpStatus.BAD_REQUEST);
         }
     }

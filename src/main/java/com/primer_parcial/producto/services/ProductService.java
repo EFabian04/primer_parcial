@@ -8,5 +8,6 @@ public interface ProductService {
     Product getProductById(Long id);
     List<Product> allProduct();
     Product createProduct(Product product);
-    Product updateProduct(Long id, Product product);
+    Boolean updateProduct(Long id,Product product);
+    Boolean deleteProduct(Long id, Product product);
 }

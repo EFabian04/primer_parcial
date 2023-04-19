@@ -26,12 +26,34 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
-    public Product updateProduct(Long id, Product product) {
-        Product productBD = productRepository.findById(id).get();
-        productBD.setProduct(product.getProduct());
-        productBD.setType(product.getType());
-        productBD.setPrice(product.getPrice());
-        productBD.setStock(product.getStock());
-        return productRepository.save(productBD);
+    public Boolean updateProduct(Long id, Product product) {
+        try {
+            Product productBD = productRepository.findById(id).get();
+            if (productBD == null) {
+                return false;
+            }
+            productBD.setProduct(product.getProduct());
+            productBD.setType(product.getType());
+            productBD.setPrice(product.getPrice());
+            productBD.setStock(product.getStock());
+            Product productUp = productRepository.save(productBD);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    @Override
+    public Boolean deleteProduct(Long id, Product product) {
+        try {
+            Product productBD = productRepository.findById(id).get();
+            if (productBD == null){
+                return false;
+            }
+            productRepository.delete(productBD);
+            return true;
+        }catch (Exception e){
+            return false;
+        }
     }
 }
