@@ -8,7 +8,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,6 +31,7 @@ public class RestProductController {
 
     @PostMapping(value = "/{id}")
     public ResponseEntity saveProduct(@PathVariable Long id) throws JsonProcessingException {
+
         Product product = restProductService.saveProduct(id);
         if(product == null){
             return new ResponseEntity<>("El producto no ha sido encontrado",HttpStatus.NOT_FOUND);

@@ -8,10 +8,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ApiProduct {
-    long id;
-    String title;
-    float price;
-    String description;
-    String image;
-    String category;
+    private long id;
+    private String title;
+    private float price;
+    private String description;
+    private String image;
+    private String category;
 }
