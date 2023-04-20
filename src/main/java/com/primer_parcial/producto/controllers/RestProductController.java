@@ -1,8 +1,9 @@
 package com.primer_parcial.producto.controllers;
 
-import com.primer_parcial.producto.service.ProductService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.primer_parcial.producto.models.ApiProduct;
+import com.primer_parcial.producto.models.Product;
+import com.primer_parcial.producto.service.RestProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,22 +12,26 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping(value = "/products")
+@RequestMapping(value = "/products/")
 public class RestProductController {
-    private final RestProductController restProductService;
+    private final RestProductService restProductService;
 
     @GetMapping(value = "/{id}")
     public ResponseEntity getProduct(@PathVariable Long id) throws JsonProcessingException {
-        return new ResponseEntity(restProductService.getProduct(id), HttpStatus.OK);
+        return new ResponseEntity(restProductService.getById(id), HttpStatus.OK);
     }
-    /*
+
     @GetMapping(value = "/all")
-    public ResponseEntity<List<ApiProduct>> getAllProduct() throws JsonProcessingException {
-        return new ResponseEntity(restProductService.getAllProduct(), HttpStatus.OK);
-    }*/
+    public ResponseEntity<List<ApiProduct>> getAllProducts() throws JsonProcessingException {
+        return new ResponseEntity(restProductService.getAllProducts(), HttpStatus.OK);
+    }
 
     @PostMapping(value = "/{id}")
     public ResponseEntity saveProduct(@PathVariable Long id) throws JsonProcessingException {
-        return new ResponseEntity(restProductService.saveProduct(id), HttpStatus.ACCEPTED);
+        Product product = restProductService.saveProduct(id);
+        if(product == null){
+            return new ResponseEntity<>("El producto no ha sido encontrado",HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity(product, HttpStatus.ACCEPTED);
     }
 }

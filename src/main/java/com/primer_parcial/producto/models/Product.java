@@ -11,6 +11,7 @@ public class Product {
     private long id;
     private String title;
     private float price;
+    @Column(length = 1000)
     private String description;
     private String image;
     private String category;
