@@ -32,10 +32,11 @@ public class ProductServiceImp implements ProductService {
             if (productBD == null) {
                 return false;
             }
-            productBD.setProduct(product.getProduct());
-            productBD.setType(product.getType());
+            productBD.setTitle(product.getTitle());
             productBD.setPrice(product.getPrice());
-            productBD.setStock(product.getStock());
+            productBD.setDescription(product.getDescription());
+            productBD.setImage(product.getImage());
+            productBD.setCategory(product.getCategory());
             Product productUp = productRepository.save(productBD);
             return true;
         } catch (Exception e) {

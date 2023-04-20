@@ -9,8 +9,9 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String product;
-    private String type;
+    private String title;
     private float price;
-    private int stock;
+    private String description;
+    private String image;
+    private String category;
 }
