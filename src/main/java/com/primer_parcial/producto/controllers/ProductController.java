@@ -1,7 +1,7 @@
 package com.primer_parcial.producto.controllers;
 
 import com.primer_parcial.producto.models.Product;
-import com.primer_parcial.producto.services.ProductServiceImp;
+import com.primer_parcial.producto.service.ProductServiceImp;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

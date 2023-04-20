@@ -1,4 +1,4 @@
-package com.primer_parcial.producto.services;
+package com.primer_parcial.producto.service;
 
 import com.primer_parcial.producto.models.Product;
 
